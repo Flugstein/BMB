@@ -1,8 +1,10 @@
-void doIncrement(){
-	int x = x+1;
+#include <thread>
+
+void doIncrement(int x){
+	x = x+1;
 }
 
-void createThreads(int threads, long operations){
+void createThreads(int threads, long operations, long x){
 	
 	std::thread first (doIncrement);
 
