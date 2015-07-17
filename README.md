@@ -15,18 +15,23 @@ Compile:
 	cmake .
 	make
 
-Example: 
+Example how to execute a test: 
+
 	./BMB -threads=10
+
 or:
+
 	./BMB -t=10
 
 
 # GNUPlot
 
-display/plot graph with:
+plot and save graph with:
 
 	gnuplot plot.plt
 
-clear data file:
+Graph will be stored in `BMB/` as "output.png"
+
+clear data file when you want to run a new measurement:
 
 	> graph.dat
