@@ -12,7 +12,7 @@ void benchFunc();
 int main(int argc, char* argv[]){
 
 	if(argc < 2) {
-		cerr << "At least 2 Argument is needed to execute the program properly" << endl;
+		cerr << "At least 2 Argument are needed to execute the program properly" << endl;
 		return 1;
 	}
 
