@@ -4,11 +4,14 @@
 #include <sstream>
 #include <string>
 #include <vector>
+
+#include "util.c"
 using namespace std;
 
 uint thread_count;
 
 void benchFunc();
+
 
 int main(int argc, char* argv[]){
 
@@ -27,6 +30,9 @@ int main(int argc, char* argv[]){
 			thread_count = stoi(argument);
 		}
 	}
+
+    size_t cache_line_size= get_cache_line_size();
+    uint* cache_line= (uint*) malloc(cache_line_size);
 
     auto begin= chrono::high_resolution_clock::now();
 
@@ -47,7 +53,7 @@ int main(int argc, char* argv[]){
 }
 
 void benchFunc(){
-    thread_local int x;
+    thread_local uint x;
 
     for(thread_local uint32_t i; i < 10000; i++){
         x++;
