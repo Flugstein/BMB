@@ -9,8 +9,8 @@ Example: "./BMB threads=10"
 
 you need to install:
 
-* sudo apt-get install gnuplot gnuplot-x11
+	sudo apt-get install gnuplot gnuplot-x11
 
 display/plot graph with:
 
-* gnuplot plot.plt - 
+	gnuplot plot.plt - 
