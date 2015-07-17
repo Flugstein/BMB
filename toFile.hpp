@@ -1,1 +1,1 @@
-void toFile(uint64_t time, uint8_t threads);
+void toFile(long time, int threads);
