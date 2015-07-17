@@ -1,15 +1,27 @@
 # BMB
 Basic Multithreading Benchmark
 
-Requirements: gcc, cmake
+you will need the following programms/frameworks:
+* gcc
+* cmake
+* gnuplot
 
-Example: "./BMB threads=10"
-=======
+how to install:
+
+	sudo apt-get install gnuplot gnuplot-x11 cmake build-essentials
+
+Compile:
+
+	cmake .
+	make
+
+Example: 
+	./BMB -threads=10
+or:
+	./BMB -t=10
+
+
 # GNUPlot
-
-you need to install:
-
-	sudo apt-get install gnuplot gnuplot-x11
 
 display/plot graph with:
 
