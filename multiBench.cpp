@@ -10,6 +10,8 @@ using namespace std;
 
 uint thread_count;
 
+uint* cache_line;
+
 void benchFunc();
 
 
@@ -35,7 +37,7 @@ int main(int argc, char* argv[]){
 		return 1;
 
     size_t cache_line_size= get_cache_line_size();
-    uint* cache_line= (uint*) malloc(cache_line_size);
+    cache_line= (uint*) malloc(cache_line_size);
 
     auto begin= chrono::high_resolution_clock::now();
 
