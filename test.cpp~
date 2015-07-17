@@ -2,6 +2,8 @@
 
 int main(){
 
-    toFile(6,88);
-    return 0;
+toFile(6,88);
+
+
+return 0;
 }
