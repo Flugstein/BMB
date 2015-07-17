@@ -1,1 +1,1 @@
-void toFile(long time, int threads);
+void toFile(long ops_per_time, int threads);

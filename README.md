@@ -13,7 +13,7 @@ you need to install:
 
 display/plot graph with:
 
-	gnuplot plot.plt - 
+	gnuplot plot.plt
 
 clear data file:
 

@@ -2,13 +2,13 @@
 #include <iostream>
 using namespace std;
 
-void toFile(long time, int threads){
+void toFile(long ops_per_time, int threads){
 	
   ofstream file;
   file.open("graph.dat",std::ios_base::app);
   if (file.is_open())
   {
-    file << time << " " << threads << "\n";
+    file << threads << " " << ops_per_time << "\n";
     file.close();
   }
   else cout << "Unable to open file";

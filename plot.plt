@@ -6,4 +6,6 @@ unset surface
 set title "Threads/execution time"
 set pm3d implicit at s
 set pm3d scansbackward
-plot "graph.dat"
+set terminal png size 800,600 enhanced font "Helvetica,20"
+set output 'output.png'
+plot "graph.dat" smooth unique
