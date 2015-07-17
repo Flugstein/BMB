@@ -52,10 +52,14 @@ int main(int argc, char* argv[]){
     auto end= chrono::high_resolution_clock::now();
     auto duration= chrono::duration_cast<chrono::nanoseconds>(end-begin).count();
     
+    uint64_t operations_per_sec;
+    operations_per_sec = (((double)thread_count * 10000.0)/(double)duration) * 1000000000.0; //TODO manuel input of operations
+
     //Debug
-    cout << "total time [ns]: " << duration << endl;
-    
-    toFile(duration, thread_count); //TODO calculate operations/sec
+
+    cout << "total time [ns]: " << duration << ", operations/sec:" << operations_per_sec << endl;
+
+    toFile(operations_per_sec, thread_count);
 
     return 0;
 }
