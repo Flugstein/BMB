@@ -1,5 +1,5 @@
-# BMB
-Basic Multithreading Benchmark
+# *MESA
+Multithreading Evironment System Analyser
 
 you will need the following programms/frameworks:
 * gcc
@@ -35,3 +35,7 @@ Graph will be stored in `BMB/` as "output.png"
 clear data file when you want to run a new measurement:
 
 	> graph.dat
+
+
+
+*black
