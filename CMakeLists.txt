@@ -1,4 +1,0 @@
-cmake_minimum_required(VERSION 2.6)
-project(BMB)
-add_executable(BMB main.cpp functions.cpp threadtest.cpp)
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
