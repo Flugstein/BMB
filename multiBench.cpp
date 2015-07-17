@@ -56,6 +56,7 @@ int main(int argc, char* argv[]){
 }
 
 void benchFunc(){
+
     thread_local uint x;
 
     for(thread_local uint32_t i; i < 10000; i++){
