@@ -25,11 +25,14 @@ int main(int argc, char* argv[]){
 		stringstream ss(argv[i]);
     	getline(ss, argument, '=');
 
-		if(argument == "threads") {
+		if(argument == "-threads" || argument == "-t") {
 			getline(ss, argument);
 			thread_count = stoi(argument);
 		}
 	}
+
+	if(thread_count == 0)
+		return 1;
 
     size_t cache_line_size= get_cache_line_size();
     uint* cache_line= (uint*) malloc(cache_line_size);
