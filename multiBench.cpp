@@ -57,7 +57,7 @@ int main(int argc, char* argv[]){
 
     //Debug
 
-    cout << "total time [ns]: " << duration << ", operations/sec:" << operations_per_sec << endl;
+    //cout << "total time [ns]: " << duration << ", operations/sec:" << operations_per_sec << endl;
 
     toFile(operations_per_sec, thread_count);
 
@@ -73,5 +73,5 @@ void benchFunc(){
     }
     
     //Debug
-    cout << x << endl;
+    //cout << x << endl;
 }

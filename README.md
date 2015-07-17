@@ -1,6 +1,10 @@
 # *MESA
 Multithreading Evironment System Analyser
 
+If you dont want to go into detail: use the `run.sh` script for easy starting:
+
+	./run.sh
+
 you will need the following programms/frameworks:
 * gcc
 * cmake
