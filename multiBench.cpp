@@ -1,11 +1,31 @@
 #include <thread>
 #include <iostream>
 #include <chrono>
+#include <sstream>
+#include <string>
 using namespace std;
+
+uint thread_count;
 
 void benchFunc();
 
-int main(){
+int main(int argc, char* argv[]){
+
+	if(argc < 2) {
+		cerr << "At least 2 Argument is needed to execute the program properly" << endl;
+		return 1;
+	}
+
+	string argument;
+	for (int i = 1; i < argc; i++) {
+		stringstream ss(argv[i]);
+    	getline(ss, argument, '=');
+
+		if(argument == "threads") {
+			getline(ss, argument);
+			thread_count = stoi(argument);
+		}
+	}
 
     auto begin= chrono::high_resolution_clock::now();
 
@@ -26,7 +46,7 @@ int main(){
 void benchFunc(){
     thread_local int x;
 
-    for(thread_local uint32_t i; i < 1000; i++){
+    for(thread_local uint32_t i; i < 10000; i++){
         x++;
     }
 
