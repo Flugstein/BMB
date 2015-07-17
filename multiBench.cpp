@@ -3,6 +3,7 @@
 #include <chrono>
 #include <sstream>
 #include <string>
+#include <vector>
 using namespace std;
 
 uint thread_count;
@@ -29,11 +30,13 @@ int main(int argc, char* argv[]){
 
     auto begin= chrono::high_resolution_clock::now();
 
-    thread first(benchFunc);
-    thread second(benchFunc);
+	vector<thread> threads;
+
+	for(int i = 0; i < thread_count; i++) {
+		threads.push_back(thread(benchFunc));
+	}	
     
-    first.join();
-    second.join();
+    for (auto& th : threads) th.join();
 
     auto end= chrono::high_resolution_clock::now();
     auto duration= chrono::duration_cast<chrono::nanoseconds>(end-begin).count();
