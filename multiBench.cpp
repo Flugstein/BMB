@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-#include "util.c"
+#include "util.hpp"
 using namespace std;
 
 uint thread_count;
@@ -51,8 +51,11 @@ int main(int argc, char* argv[]){
 
     auto end= chrono::high_resolution_clock::now();
     auto duration= chrono::duration_cast<chrono::nanoseconds>(end-begin).count();
-
+    
+    //Debug
     cout << "total time [ns]: " << duration << endl;
+    
+    toFile(duration, thread_count); //TODO calculate operations/sec
 
     return 0;
 }
@@ -64,6 +67,7 @@ void benchFunc(){
     for(thread_local uint32_t i; i < 10000; i++){
         x++;
     }
-
+    
+    //Debug
     cout << x << endl;
 }
