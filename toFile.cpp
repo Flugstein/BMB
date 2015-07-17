@@ -1,11 +1,16 @@
 #include <fstream>
+#include <iostream>
 using namespace std;
 
-void toFile(uint64_t time, uint8_t threads){
+void toFile(long time, int threads){
 	
-    fstream f;
-    f.open("test.dat", ios::app);
-    f << time << " " << threads << endl;
-    f.close();
+  ofstream file;
+  file.open("graph.dat",std::ios_base::app);
+  if (file.is_open())
+  {
+    file << time << " " << threads << "\n";
+    file.close();
+  }
+  else cout << "Unable to open file";
 
 }

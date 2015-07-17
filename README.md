@@ -14,3 +14,7 @@ you need to install:
 display/plot graph with:
 
 	gnuplot plot.plt - 
+
+clear data file:
+
+	> graph.dat
