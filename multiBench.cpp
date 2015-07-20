@@ -12,7 +12,7 @@ uint thread_count;
 
 uint* cache_line;
 
-void benchFunc();
+void benchFunc(uint16_t thread_no);
 
 
 int main(int argc, char* argv[]){
@@ -43,8 +43,8 @@ int main(int argc, char* argv[]){
 
 	vector<thread> threads;
 
-	for(int i = 0; i < thread_count; i++) {
-		threads.push_back(thread(benchFunc));
+	for(uint16_t i = 0; i < thread_count; i++) {
+		threads.push_back(thread(benchFunc, i));
 	}	
     
     for (auto& th : threads) th.join();
@@ -56,7 +56,6 @@ int main(int argc, char* argv[]){
     operations_per_sec = (((double)thread_count * 10000.0)/(double)duration) * 1000000000.0; //TODO manuel input of operations
 
     //Debug
-
     //cout << "total time [ns]: " << duration << ", operations/sec:" << operations_per_sec << endl;
 
     toFile(operations_per_sec, thread_count);
@@ -64,12 +63,13 @@ int main(int argc, char* argv[]){
     return 0;
 }
 
-void benchFunc(){
+void benchFunc(uint16_t thread_no){
 
-    thread_local uint x;
+    //thread_local uint x;
 
     for(thread_local uint32_t i; i < 10000; i++){
-        x++;
+        //x++;
+        cache_line[thread_no]++;
     }
     
     //Debug
