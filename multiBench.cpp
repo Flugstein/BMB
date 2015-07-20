@@ -10,7 +10,7 @@ using namespace std;
 
 uint thread_count;
 
-uint* cache_line;
+uint* x_storage;
 
 void benchFunc(uint16_t thread_no);
 
@@ -35,28 +35,26 @@ int main(int argc, char* argv[]){
 
 	if(thread_count == 0)
 		return 1;
+    
 
-    size_t cache_line_size= get_cache_line_size();
-    cache_line= (uint*) malloc(cache_line_size);
+    x_storage= (uint*) malloc(sizeof(uint)*thread_count);
+    vector<thread> threads;
+
 
     auto begin= chrono::high_resolution_clock::now();
-
-	vector<thread> threads;
 
 	for(uint16_t i = 0; i < thread_count; i++) {
 		threads.push_back(thread(benchFunc, i));
 	}	
-    
     for (auto& th : threads) th.join();
 
     auto end= chrono::high_resolution_clock::now();
     auto duration= chrono::duration_cast<chrono::nanoseconds>(end-begin).count();
     
-    uint64_t operations_per_sec;
-    operations_per_sec = (((double)thread_count * 10000.0)/(double)duration) * 1000000000.0; //TODO manuel input of operations
 
-    //Debug
-    //cout << "total time [ns]: " << duration << ", operations/sec:" << operations_per_sec << endl;
+    //TODO manuel input of operations
+    uint64_t operations_per_sec;
+    operations_per_sec = (((double)thread_count * 10000.0)/(double)duration) * 1000000000.0; 
 
     toFile(operations_per_sec, thread_count);
 
@@ -69,9 +67,6 @@ void benchFunc(uint16_t thread_no){
 
     for(thread_local uint32_t i; i < 10000; i++){
         //x++;
-        cache_line[thread_no]++;
+        x_storage[thread_no]++;
     }
-    
-    //Debug
-    //cout << x << endl;
 }
