@@ -1,13 +1,10 @@
 #!/bin/bash
-threads_start=
-threads_diff=
-threads_end=
-operations=
 accuracy=
 decision=
 progress=
 
 goto main
+
 
 main:
 clear
@@ -21,9 +18,10 @@ echo "1. about ..."
 echo "2. Initial Start"
 echo "3. Run Test"
 echo "4. Plot Graph"
-echo "5. exit"
-echo "(Press Number)"
-read decision
+echo "5. Reset for new Meassurement"
+echo "6. exit"
+echo ""
+read -p "(Press Number)" decision
 
 clear
 
@@ -36,36 +34,42 @@ case $decision in
   2) 	echo "//MESA//" 
 	echo "initial setup" 
 	echo ""
+	echo "//get packages:"
 	sudo apt-get install gnuplot gnuplot-x11 cmake build-essentials
+	echo "//build Makefiles:"
 	cmake .
+	echo "//compile:"
 	make
   ;;
 	
   3)
 	echo "//MESA//" 
 	echo ""
-	echo "Insert the minimum amount of threads:"
-	read threads_start
-	echo ""
-	echo "Insert maximum amount of threads:"
-	read threads_end
-	echo ""
-	echo "Insert the difference (in Threads) between every single measurement:"
-	read threads_diff
-	echo ""
-	echo "Nr of operations executed per run: (NOT WORKING ATM)(10000 by default)"
-	read operations
-	echo ""
-	echo "How often (to get a better accuracy):"
-	read accuracy
+	read -e -p "Operating mode: (1) no_sharing, (2) false_sharing: " operating_mode_nr
+	read -e -p "Insert the minimum amount of threads: " -i "1" threads_start 
+	read -e -p "Insert maximum amount of threads: " -i "25"  threads_end 
+	read -e -p "Insert the difference (in Threads) between every single measurement: " -i "1"  threads_diff 
+	read -e -p "Nr of operations executed per run: " -i "10000"  operations 
+	read -e -p "How often (to get a better accuracy):" -i "100" accuracy
 
+	if [ $operating_mode_nr == "1" ]
+	   then	
+	      operating_mode="no_sharing"
+	elif [ $operating_mode_nr == "2" ]   
+	   then
+	      operating_mode="false_sharing"
+	fi
+
+	echo "going do execute: ./BMB -t=$i -op=$operations -m=$operating_mode -o=$operating_mode"
+	read
+	
 	count=0
 	max=$((accuracy * (threads_end-threads)/threads_diff))
 	for (( i=threads_start; i<=threads_end; i=i+threads_diff ))
 	do
 	    for(( j=0; j<=accuracy; j++ ))
 		do	
-	   	./BMB -t=$i	
+	   	./BMB -t=$i -op=$operations -m=$operating_mode -o=$operating_mode
 		progress=$((100*count/max))
 		let count++
 		clear
@@ -73,8 +77,9 @@ case $decision in
 		echo "Progress: $progress%"
 		done
 	done
-	echo "//MESA//" 
+	echo "" 
 	echo "test successfully executed!"
+	echo "($max times executed)"
   ;;
 
   4)
@@ -85,12 +90,25 @@ case $decision in
   ;;
 
   5)
+	echo "//MESA//"
+	echo ""
+	ls *.dat
+	read -p "What file to reset: " $filename
+	> $filename
+	echo "successfully reseted!"
+  ;;
+
+  6)
 	exit
+  ;;
+
+  *)
+	echo "SIKE! thats the wrong number!"
   ;;
 esac
 
 echo ""
-echo "(Press any key to return to menu)"
+echo "(Press enter to return to menu)"
 read
 ( exec ./run.sh )
 

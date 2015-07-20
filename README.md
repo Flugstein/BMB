@@ -21,11 +21,11 @@ Compile:
 
 Example how to execute a test: 
 
-	./BMB -threads=10
+	./BMB -threads=10 -operations=100 -mode=no_sharing -output_name=name
 
 or:
 
-	./BMB -t=10
+	./BMB -t=10 -op=100 -m=false_sharing -o=name
 
 
 # GNUPlot
