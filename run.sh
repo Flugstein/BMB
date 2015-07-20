@@ -25,69 +25,76 @@ echo "5. exit"
 echo "(Press Number)"
 read decision
 
-echo $decision
+clear
 
 case $decision in
-	1) echo "not yet implemented"
-	;;
-	2) echo "not yet implemented"
-	;;
-	"3") goto test
-	;;
-	"4") goto plot
-	;;
-	"5") goto exit
-	;;
-	*) goto main
-esac
-goto main
-
-test: 
-clear
-echo $decision
-
-echo "//MESA//"
-echo ""
-echo "Insert the minimum amount of threads:"
-read threads_start
-echo ""
-echo "Insert maximum amount of threads:"
-read threads_end
-echo ""
-echo "Insert the difference (in Threads) between every single measurement:"
-read threads_diff
-echo ""
-echo "Nr of operations executed per run: (NOT WORKING ATM)(10000 by default)"
-read operations
-echo ""
-echo "How often (to get a better accuracy):"
-read accuracy
-
-clear
-echo "//MESA//" 
-echo "Nr. of Threads: $threads_start - $threads_end; Steps: $threads_diff"
-echo ""
-
-count=0
-max=$((accuracy * (threads_end-threads)/threads_diff))
-for (( i=threads_start; i<=threads_end; i=i+threads_diff ))
-do
-    for(( j=0; j<=accuracy; j++ ))
-	do	
-   	./BMB -t=$i
-	progress=$((100*count/max))
-	let count++
-	clear
+  1)
 	echo "//MESA//"
-	echo "Progress: $progress%"
+	( exec ./about.sh )
+  ;;
+  
+  2) 	echo "//MESA//" 
+	echo "initial setup" 
+	echo ""
+	sudo apt-get install gnuplot gnuplot-x11 cmake build-essentials
+	cmake .
+	make
+  ;;
+	
+  3)
+	echo "//MESA//" 
+	echo ""
+	echo "Insert the minimum amount of threads:"
+	read threads_start
+	echo ""
+	echo "Insert maximum amount of threads:"
+	read threads_end
+	echo ""
+	echo "Insert the difference (in Threads) between every single measurement:"
+	read threads_diff
+	echo ""
+	echo "Nr of operations executed per run: (NOT WORKING ATM)(10000 by default)"
+	read operations
+	echo ""
+	echo "How often (to get a better accuracy):"
+	read accuracy
+
+	count=0
+	max=$((accuracy * (threads_end-threads)/threads_diff))
+	for (( i=threads_start; i<=threads_end; i=i+threads_diff ))
+	do
+	    for(( j=0; j<=accuracy; j++ ))
+		do	
+	   	./BMB -t=$i	
+		progress=$((100*count/max))
+		let count++
+		clear
+		echo "//MESA//"
+		echo "Progress: $progress%"
+		done
 	done
-done
-goto main
+	echo "//MESA//" 
+	echo "test successfully executed!"
+  ;;
 
+  4)
+	echo "//MESA//" 
+	echo ""
+	gnuplot plot.plt
+	echo "graph successfully ploted!"
+  ;;
 
-plot:
-gnuplot plot.plt
-goto main
+  5)
+	exit
+  ;;
+esac
 
-exit:
-exit
+echo ""
+echo "(Press any key to return to menu)"
+read
+( exec ./run.sh )
+
+#clear
+#echo "//MESA//" 
+#echo "Nr. of Threads: $threads_start - $threads_end; Steps: $threads_diff"
+#echo ""
