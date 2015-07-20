@@ -22,14 +22,14 @@ void false_sharing(uint16_t thread_no);
 
 int main(int argc, char* argv[]){
     
-	string argument;
+    string argument;
     for (int i = 1; i < argc; i++) {
         stringstream ss(argv[i]);
         getline(ss, argument, '=');
         
         if (argument == "-threads" || argument == "-t"){
             getline(ss, argument);
-			thread_count = stoi(argument);
+            thread_count = stoi(argument);
         }
         else if (argument == "-operations" || argument == "-op"){
             getline(ss, argument);
@@ -43,14 +43,14 @@ int main(int argc, char* argv[]){
             getline(ss, argument);
             o_filename = argument; 
         }
-	}
+    }
     
     if (thread_count == 0){
-		cout << "error: need at least 1 thread" << endl;
+        cout << "error: need at least 1 thread" << endl;
         return 1;
     }
     if (operations == 0){
-		cout << "error: need at least 1 operation" << endl;
+        cout << "error: need at least 1 operation" << endl;
         return 1;
     }
     if (o_filename == ""){
@@ -67,12 +67,12 @@ int main(int argc, char* argv[]){
 
     if(mode == "no_sharing"){
     	for(uint16_t i = 0; i < thread_count; i++) {
-	    	threads.push_back(thread(no_sharing, i));
+            threads.push_back(thread(no_sharing, i));
     	}
     }
     else if(mode == "false_sharing"){
         for(uint16_t i = 0; i < thread_count; i++) {
-	    	threads.push_back(thread(false_sharing, i));
+            threads.push_back(thread(false_sharing, i));
     	}
     }
     else{
