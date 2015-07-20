@@ -23,9 +23,9 @@ void false_sharing(uint16_t thread_no);
 int main(int argc, char* argv[]){
     
 	string argument;
-	for (int i = 1; i < argc; i++) {
-		stringstream ss(argv[i]);
-    	getline(ss, argument, '=');
+    for (int i = 1; i < argc; i++) {
+        stringstream ss(argv[i]);
+        getline(ss, argument, '=');
         
         if (argument == "-threads" || argument == "-t"){
             getline(ss, argument);
@@ -45,11 +45,11 @@ int main(int argc, char* argv[]){
         }
 	}
     
-	if (thread_count == 0){
+    if (thread_count == 0){
 		cout << "error: need at least 1 thread" << endl;
         return 1;
     }
-    if (thread_count == 0){
+    if (operations == 0){
 		cout << "error: need at least 1 operation" << endl;
         return 1;
     }
